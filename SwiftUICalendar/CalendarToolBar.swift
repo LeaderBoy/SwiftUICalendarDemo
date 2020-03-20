@@ -46,18 +46,22 @@ struct CalendarToolBar: View {
                 }
             }
             Spacer()
-            HStack(spacing:20) {
+            HStack(spacing:5) {
                 Button(action: {
                     
                 }) {
-                    Image(systemName: "tv.fill")
+                    Image(systemName: "chevron.left")
+                    .font(.system(size: 25, weight: .medium))
                 }
+                .frame(width: 50, height: 40)
                 Button(action: {
                     
                 }) {
-                    Image(systemName: "tv.fill")
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 25, weight: .medium))
                 }
-            }.padding()
+                .frame(width: 50, height: 40)
+            }
         }.foregroundColor(foreColor)
     }
 }

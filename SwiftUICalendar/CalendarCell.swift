@@ -9,65 +9,81 @@
 import SwiftUI
 
 struct CalendarCell: View {
+    @EnvironmentObject var obj : CalendarObj
     
-    var text : String
-    @Binding var state : State
+    var date : Date
     
-    enum State {
+    @Binding var state : CellState
+    
+    enum CellState {
         case normal
         case selected
         case current
         case disabled
+        
+        func stateBackColor() -> Color {
+            switch self {
+            case .normal:
+                return .white
+            case .selected:
+                return .blue
+            case .current:
+                return .red
+            case .disabled:
+                return .gray
+            }
+        }
+
+        func stateTextColor() -> Color {
+            switch self {
+            case .normal:
+                return .black
+            case .selected:
+                return .white
+            case .current:
+                return .white
+            case .disabled:
+                return .black
+            }
+        }
     }
-    
+
     var body: some View {
-        Text(text)
-            .padding()
-            .foregroundColor(stateTextColor())
-            .background(stateBackColor())
-            .clipShape(Circle())
+        Button(action: {
+            if self.state == .selected {
+                self.state = .normal
+            } else {
+                self.state = .selected
+            }
+        }) {
+            Text("\(self.day())")
+        }
+        .frame(width: 44, height: 44)
+        .foregroundColor(state.stateTextColor())
+        .background(state.stateBackColor())
+        .clipShape(Circle())
     }
     
-    func stateBackColor() -> Color {
-        switch state {
-        case .normal:
-            return .white
-        case .selected:
-            return .blue
-        case .current:
-            return .red
-        case .disabled:
-            return .gray
-        }
+    func day() -> Int {
+        let components = obj.calendar.dateComponents([.day], from: date)
+        return components.day ?? 0
     }
     
-    func stateTextColor() -> Color {
-        switch state {
-        case .normal:
-            return .black
-        case .selected:
-            return .white
-        case .current:
-            return .white
-        case .disabled:
-            return .black
-        }
-    }
 }
 
 struct CalendarCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CalendarCell(text: "12", state: .constant(.normal))
+            CalendarCell(date: Date(), state: .constant(.normal))
             .previewDisplayName("Normal")
 
-            CalendarCell(text: "12", state: .constant(.current))
+            CalendarCell(date: Date(), state: .constant(.current))
             .previewDisplayName("Current")
 
-            CalendarCell(text: "12", state: .constant(.selected))
+            CalendarCell(date: Date(), state: .constant(.selected))
             .previewDisplayName("Selected")
 
-            CalendarCell(text: "12", state: .constant(.disabled))
+            CalendarCell(date: Date(), state: .constant(.disabled))
             .previewDisplayName("Disabled")
         }.previewLayout(.fixed(width: 300, height: 100))
     }

@@ -11,6 +11,8 @@ import SwiftUI
 struct CalendarWeekBar: View {
     
     @EnvironmentObject var calendarObj : CalendarObj
+    
+    var color : Color = Color.gray
         
     var body: some View {
         HStack {
@@ -19,6 +21,7 @@ struct CalendarWeekBar: View {
                     Spacer()
                     Text(week)
                         .lineLimit(1)
+                        .foregroundColor(self.color)
                     Spacer()
                 }
             }

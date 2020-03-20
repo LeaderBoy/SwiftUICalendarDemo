@@ -17,6 +17,7 @@ struct CalendarView: View {
             CalendarToolBar()
             CalendarWeekBar()
             CalendarDateCollectionView()
+                .padding(.top, 10)
         }.padding()
     }
 }

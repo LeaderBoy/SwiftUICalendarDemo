@@ -11,6 +11,7 @@ import SwiftUI
 class CalendarObj : ObservableObject {
     @Published var calendar : Calendar = .current
     @Published var date : Date = Date()
+    @Published var selectedDate : Date! = nil
     
 }
 
