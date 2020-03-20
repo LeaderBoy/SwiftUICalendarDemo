@@ -8,9 +8,18 @@
 
 import SwiftUI
 
+class CalendarObj : ObservableObject {
+    @Published var calendar : Calendar = .current
+    @Published var date : Date = Date()
+    
+}
+
 struct ContentView: View {
+    
+    @ObservedObject var calendarObj = CalendarObj()
+    
     var body: some View {
-        Text("Hello, World!")
+        CalendarView().environmentObject(calendarObj)
     }
 }
 
