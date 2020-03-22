@@ -15,21 +15,18 @@ struct CalendarDateCollectionView: View {
     
     var body: some View {
         VStack {
-            PageView(pageManager: obj.pageManager, views: (0..<obj.months).map{ _ in pages()
-            }).onAppear {
-                self.obj.pageManager.currentPage = self.obj.months / 2
-            }
+            PageView(pageManager: obj.pageManager, views:[self.page()])
         }
     }
 
-    func pages() -> some View {
+    func page() -> some View {
         VStack {
             ForEach(self.datesArray(),id: \.self) { rows in
                 HStack(spacing:0) {
                     ForEach(rows,id: \.self) { column in
                         HStack {
                             Spacer(minLength: 0)
-                            CalendarCell(holderDate: column, state: self.$state)
+                            CalendarCell(holderDate: column)
                             Spacer(minLength: 0)
                         }
                     }
@@ -83,10 +80,6 @@ struct CalendarDateCollectionView: View {
     
     func dayOffset() -> Int {
         return obj.date.firstDayOfWeek() - 1
-    }
-    
-    func isToday() {
-        
     }
 }
 

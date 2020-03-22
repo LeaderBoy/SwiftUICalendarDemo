@@ -11,6 +11,14 @@ import Foundation
 
 extension Date {
     
+    func isToday() -> Bool {
+        return isSameDay(date: Date())
+    }
+    
+    func isFuture() -> Bool {
+        return self > Date()
+    }
+    
     func isSameDay(date:Date,in calendar : Calendar = .current) -> Bool {
         return calendar.isDate(date, inSameDayAs: self)
     }
@@ -21,6 +29,10 @@ extension Date {
     
     func addMonth(by : Int ,in calendar : Calendar = .current) -> Date {
         return calendar.date(byAdding: .month, value: by, to: self)!
+    }
+    
+    func dayDiff(in calendar : Calendar = .current,to:Date) -> Int {
+        return calendar.dateComponents([.day], from: self, to: to).day!
     }
     
     func monthDiff(in calendar : Calendar = .current,to:Date) -> Int {

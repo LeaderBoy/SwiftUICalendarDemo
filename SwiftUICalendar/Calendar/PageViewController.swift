@@ -22,15 +22,15 @@ struct PageViewController: UIViewControllerRepresentable {
         return pageManager.direction
     }
 
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
 
     func makeUIViewController(context: Context) -> UIPageViewController {
         let pageViewController = UIPageViewController(
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
-//        pageViewController.delegate = context.coordinator
+        pageViewController.delegate = context.coordinator
 //        pageManager.onPageChange = {(page,direction) in
 //            if page >= self.controllers.count || page < 0  {
 //                print("Warning ⚠️ : page beyond index of range" )
@@ -42,14 +42,20 @@ struct PageViewController: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        pageViewController.setViewControllers([controllers[currentPage]], direction: direction, animated: true)
+        let coor = context.coordinator
+        if coor.last == currentPage {
+            return
+        }
+        pageViewController.setViewControllers([self.controllers[0]], direction: direction, animated: true)
+        coor.last = currentPage
     }
 
-//    class Coordinator: NSObject, UIPageViewControllerDelegate {
-//        var parent: PageViewController
-//
-//        init(_ pageViewController: PageViewController) {
-//            self.parent = pageViewController
-//        }
-//    }
+    class Coordinator: NSObject, UIPageViewControllerDelegate {
+        var parent: PageViewController
+        var last : Int = NSNotFound
+
+        init(_ pageViewController: PageViewController) {
+            self.parent = pageViewController
+        }
+    }
 }

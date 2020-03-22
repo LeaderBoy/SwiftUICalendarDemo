@@ -13,7 +13,7 @@ struct CalendarCell: View {
     
     var holderDate : HolderDate
     
-    @Binding var state : CellState
+    @State var state : CellState = .normal
     
     enum CellState {
         case normal
@@ -30,7 +30,7 @@ struct CalendarCell: View {
             case .current:
                 return .red
             case .disabled:
-                return .gray
+                return .white
             }
         }
 
@@ -43,25 +43,60 @@ struct CalendarCell: View {
             case .current:
                 return .white
             case .disabled:
-                return .black
+                return .gray
             }
         }
     }
 
     var body: some View {
         Button(action: {
-            if self.state == .selected {
-                self.state = .normal
-            } else {
-                self.state = .selected
-            }
+            self.buttonTap()
         }) {
             Text(self.day())
         }
+        .disabled(holderDate.date == nil || isFuture())
         .frame(width: 44, height: 44)
         .foregroundColor(state.stateTextColor())
         .background(state.stateBackColor())
         .clipShape(Circle())
+        .onAppear {
+            self.stateChanged()
+        }
+        .onReceive(obj.didChangeSelectedDate) { value in
+            self.stateChanged()
+        }
+    }
+    
+    
+    func stateChanged() {
+        withAnimation {
+            if isFuture() {
+                state = .disabled
+            } else if isSelected() {
+                state = .selected
+            } else if isToday() {
+                state = .current
+            } else {
+                state = .normal
+            }
+        }
+    }
+    
+    func buttonTap() {
+        if let date = self.holderDate.date {
+            withAnimation(.spring()) {
+                if self.isSelected() {
+                    if isToday() {
+                        self.state = .current
+                    } else {
+                        self.state = .normal
+                    }
+                    self.obj.selectedDate = Date()
+                } else {
+                    self.obj.selectedDate = date
+                }
+            }
+        }
     }
     
     func day() -> String {
@@ -72,22 +107,44 @@ struct CalendarCell: View {
         return ""
     }
     
+    func isToday() -> Bool {
+        if let date = holderDate.date {
+            return date.isToday()
+        }
+        return false
+    }
+    
+    func isFuture() -> Bool {
+        if let date = holderDate.date {
+            return date.isFuture()
+        }
+        return false
+    }
+    
+    func isSelected() -> Bool {
+        if let date = holderDate.date {
+            let selected = obj.selectedDate
+            return date.isSameDay(date: selected)
+        }
+        return false
+    }
+    
 }
 
 struct CalendarCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.normal))
+            CalendarCell(holderDate: HolderDate(date:Date()))
             .previewDisplayName("Normal")
 
-            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.current))
-            .previewDisplayName("Current")
-
-            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.selected))
-            .previewDisplayName("Selected")
-
-            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.disabled))
-            .previewDisplayName("Disabled")
+//            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.current))
+//            .previewDisplayName("Current")
+//
+//            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.selected))
+//            .previewDisplayName("Selected")
+//
+//            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.disabled))
+//            .previewDisplayName("Disabled")
         }.previewLayout(.fixed(width: 300, height: 100))
     }
 }
