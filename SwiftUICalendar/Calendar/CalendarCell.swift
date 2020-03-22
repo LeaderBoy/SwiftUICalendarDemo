@@ -20,6 +20,7 @@ struct CalendarCell: View {
         case selected
         case current
         case disabled
+        case placeholder
         
         func stateBackColor() -> Color {
             switch self {
@@ -31,6 +32,8 @@ struct CalendarCell: View {
                 return .red
             case .disabled:
                 return .white
+            case .placeholder:
+                return .clear
             }
         }
 
@@ -44,6 +47,8 @@ struct CalendarCell: View {
                 return .white
             case .disabled:
                 return .gray
+            case .placeholder:
+                return .clear
             }
         }
     }
@@ -60,7 +65,7 @@ struct CalendarCell: View {
         .background(state.stateBackColor())
         .clipShape(Circle())
         .onAppear {
-            self.stateChanged()
+            self.stateChanged(animated: false)
         }
         .onReceive(obj.didChangeSelectedDate) { value in
             self.stateChanged()
@@ -68,17 +73,28 @@ struct CalendarCell: View {
     }
     
     
-    func stateChanged() {
-        withAnimation {
-            if isFuture() {
-                state = .disabled
-            } else if isSelected() {
-                state = .selected
-            } else if isToday() {
-                state = .current
-            } else {
-                state = .normal
+    func stateChanged(animated : Bool = true) {
+        if let _ = holderDate.date {
+            let change =  {
+                if self.isFuture() {
+                    self.state = .disabled
+                } else if self.isSelected() {
+                    self.state = .selected
+                } else if self.isToday() {
+                    self.state = .current
+                } else {
+                    self.state = .normal
+                }
             }
+            if animated {
+                withAnimation {
+                    change()
+                }
+            } else {
+                change()
+            }
+        } else {
+            self.state = .placeholder
         }
     }
     

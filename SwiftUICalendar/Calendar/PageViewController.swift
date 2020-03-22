@@ -42,6 +42,10 @@ struct PageViewController: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        
+        pageViewController.view.setContentHuggingPriority(.required, for: .vertical)
+        pageViewController.view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         let coor = context.coordinator
         if coor.last == currentPage {
             return

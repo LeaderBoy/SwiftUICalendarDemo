@@ -48,7 +48,7 @@ struct CalendarToolBar: View {
             Spacer()
             HStack(spacing:5) {
                 Button(action: {
-                    self.calendarObj.date = self.calendarObj.date.addMonth(by:-1)
+                    self.calendarObj.date = self.calendarObj.date.addMonth(by:-1)                    
                     self.calendarObj.pageManager.currentPage -= 1
                 }) {
                     Image(systemName: "chevron.left")
