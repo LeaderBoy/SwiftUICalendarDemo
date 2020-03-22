@@ -7,13 +7,41 @@
 //
 
 import SwiftUI
+import Combine
+
+class PageManager : ObservableObject {
+//    let objectWillChange = PassthroughSubject<Int,Never>()
+    
+    @Published var currentPage : Int = 0 {
+        willSet {
+            if newValue >= currentPage {
+                direction = .forward
+            } else {
+                direction = .reverse
+            }
+            objectWillChange.send()
+        }
+        
+        didSet {
+            onPageChange?(currentPage,direction)
+        }
+    }
+    
+    var direction : UIPageViewController.NavigationDirection = .forward
+    /// Bug: Prevent `ObservableObject` not call the updateView of `UIViewControllerRepresentable`
+    /// https://stackoverflow.com/questions/58142942/swiftui-not-refresh-my-custom-uiview-with-uiviewrepresentable-observableobject
+    var onPageChange: ((Int,UIPageViewController.NavigationDirection)->Void)?
+
+}
+
 
 struct CalendarDateCollectionView: View {
     
     @EnvironmentObject var obj : CalendarObj
     @State var state : CalendarCell.CellState = .normal
-
-    var body: some View {
+    @State var dataExample = (0 ..< 30).map { $0 }
+    
+    func pages() -> some View {
         VStack {
             ForEach(self.datesArray(),id: \.self) { rows in
                 HStack(spacing:0) {
@@ -27,6 +55,14 @@ struct CalendarDateCollectionView: View {
                 }
             }
         }
+    }
+
+    var body: some View {
+        VStack {
+            PageView(pageManager: obj.pageManager, views: dataExample.map{ _ in pages()
+            })
+        }
+//        .scaledToFit()
     }
     
 //    func selected() -> Bool {
@@ -125,7 +161,7 @@ struct CalendarDateCollectionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CalendarDateCollectionView()
-            .previewLayout(.fixed(width: 400, height: 300))
+//            .previewLayout(.fixed(width: 400, height: 300))
             .environmentObject(CalendarObj())
 //
 //            CalendarDateCollectionView()

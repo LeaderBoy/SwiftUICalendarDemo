@@ -48,14 +48,14 @@ struct CalendarToolBar: View {
             Spacer()
             HStack(spacing:5) {
                 Button(action: {
-                    
+                    self.calendarObj.pageManager.currentPage -= 1
                 }) {
                     Image(systemName: "chevron.left")
                     .font(.system(size: 25, weight: .medium))
                 }
                 .frame(width: 50, height: 40)
                 Button(action: {
-                    
+                    self.calendarObj.pageManager.currentPage += 1
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 25, weight: .medium))

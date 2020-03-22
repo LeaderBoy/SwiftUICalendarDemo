@@ -10,6 +10,8 @@ import SwiftUI
 
 struct PendantView: View {
     
+    @EnvironmentObject var obj : CalendarObj
+
     var color : Color = .green
     
     var body: some View {
@@ -19,7 +21,7 @@ struct PendantView: View {
                 VStack {
                     Text("Mon")
                         .font(.footnote)
-                    Text("2")
+                    Text("\(obj.pageManager.currentPage)")
                 }.foregroundColor(Color.white)
             }
             .frame(width: 50, height: 50)

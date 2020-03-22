@@ -7,12 +7,23 @@
 //
 
 import SwiftUI
+import Combine
 
 class CalendarObj : ObservableObject {
     @Published var calendar : Calendar = .current
     @Published var date : Date = Date()
     @Published var selectedDate : Date! = nil
+    @Published var pageManager = PageManager()
     
+    var anyCancellable: AnyCancellable? = nil
+
+    /// for nest ObservableObject not work
+    ///  https://stackoverflow.com/questions/58406287/how-to-tell-swiftui-views-to-bind-to-nested-observableobjects
+    init() {
+        anyCancellable = pageManager.objectWillChange.sink(receiveValue: { (_) in
+            self.objectWillChange.send()
+        })
+    }
 }
 
 struct ContentView: View {
