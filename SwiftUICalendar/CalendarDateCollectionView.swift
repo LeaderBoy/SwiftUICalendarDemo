@@ -7,40 +7,21 @@
 //
 
 import SwiftUI
-import Combine
-
-class PageManager : ObservableObject {
-//    let objectWillChange = PassthroughSubject<Int,Never>()
-    
-    @Published var currentPage : Int = 0 {
-        willSet {
-            if newValue >= currentPage {
-                direction = .forward
-            } else {
-                direction = .reverse
-            }
-            objectWillChange.send()
-        }
-        
-        didSet {
-            onPageChange?(currentPage,direction)
-        }
-    }
-    
-    var direction : UIPageViewController.NavigationDirection = .forward
-    /// Bug: Prevent `ObservableObject` not call the updateView of `UIViewControllerRepresentable`
-    /// https://stackoverflow.com/questions/58142942/swiftui-not-refresh-my-custom-uiview-with-uiviewrepresentable-observableobject
-    var onPageChange: ((Int,UIPageViewController.NavigationDirection)->Void)?
-
-}
-
 
 struct CalendarDateCollectionView: View {
     
     @EnvironmentObject var obj : CalendarObj
     @State var state : CalendarCell.CellState = .normal
-    @State var dataExample = (0 ..< 30).map { $0 }
     
+    var body: some View {
+        VStack {
+            PageView(pageManager: obj.pageManager, views: (0..<obj.months).map{ _ in pages()
+            }).onAppear {
+                self.obj.pageManager.currentPage = self.obj.months / 2
+            }
+        }
+    }
+
     func pages() -> some View {
         VStack {
             ForEach(self.datesArray(),id: \.self) { rows in
@@ -48,7 +29,7 @@ struct CalendarDateCollectionView: View {
                     ForEach(rows,id: \.self) { column in
                         HStack {
                             Spacer(minLength: 0)
-                            CalendarCell(date: column, state: self.$state)
+                            CalendarCell(holderDate: column, state: self.$state)
                             Spacer(minLength: 0)
                         }
                     }
@@ -56,40 +37,25 @@ struct CalendarDateCollectionView: View {
             }
         }
     }
-
-    var body: some View {
-        VStack {
-            PageView(pageManager: obj.pageManager, views: dataExample.map{ _ in pages()
-            })
-        }
-//        .scaledToFit()
-    }
     
-//    func selected() -> Bool {
-//          if obj.selectedDate == nil {
-//              return obj.selectedDate.isSameDay(date: date)
-//          }
-//          return false
-//    }
-        
     /// Combine row and column for collectionView
-    func datesArray() -> [[Date]] {
-        var rowArray : [[Date]] = []
+    func datesArray() -> [[HolderDate]] {
+        var rowArray : [[HolderDate]] = []
         let columns = numberOfColumns()
         let rows = numberOfRows()
         let days = self.obj.date.allDays()
-        
-        let placeholder = Date()
+        let placeholder = HolderDate(date: nil)
+        let offset = dayOffset()
         
         for row in 0..<rows {
-            var columnArray : [Date] = []
+            var columnArray : [HolderDate] = []
             for column in 0..<columns {
                 let index = row * columns + column
-                if days.count > index {
-                    let d = days[index]
-                    columnArray.append(d)
-                } else {
+                if index < offset || days.count <= (index - offset) {
                     columnArray.append(placeholder)
+                } else {
+                    let d = days[index - offset]
+                    columnArray.append(HolderDate(date: d))
                 }
             }
             rowArray.append(columnArray)
@@ -97,48 +63,11 @@ struct CalendarDateCollectionView: View {
         return rowArray
     }
     
-    func date(at index : Int) -> Date {
-        return self.obj.date.date(at: index)
-    }
-    
-    func date(at row: Int,column : Int) -> Date {
-        let index = row * numberOfColumns() + column
-        return date(at: index)
-    }
-    
-    ///
-    func dateComponents() -> DateComponents {
-//        let index = row * numberOfColumns() + column
-//        let days = numberOfDaysInMonth()
-//        if index > days {
-//            return ""
-//        }
-        let components =  obj.calendar.dateComponents([.year,.month,.day], from: obj.date)
-        return components
-    }
-    
-    
-    func firstDayOf(date : Date) {
-//        let calendar = calendarObj.calendar
-//        let components = calendar.components([.Year, .Month], fromDate: date)
-//        let startOfMonth = calendar.dateFromComponents(components)!
-    }
-    
-//    func state(for day : Int) -> CalendarCell.CellState {
-//
-//    }
-    
-    /// Days in specified month
-    func numberOfDaysInMonth() -> Int {
-        if let days = obj.calendar.range(of: .day, in: .month, for: obj.date) {
-            return days.count
-        }
-        return 0
-    }
-    
     /// Rows in specified month
     func numberOfRows() -> Int {
-        let days = numberOfDaysInMonth()
+        let actualDays = obj.date.numberOfDays()
+        let offset = dayOffset()
+        let days = actualDays + offset
         let columns = numberOfColumns()
         let number = days % columns
         if number == 0 {
@@ -152,9 +81,17 @@ struct CalendarDateCollectionView: View {
         return 7
     }
     
+    func dayOffset() -> Int {
+        return obj.date.firstDayOfWeek() - 1
+    }
+    
     func isToday() {
         
     }
+}
+
+struct HolderDate : Hashable {
+    let date : Date?
 }
 
 struct CalendarDateCollectionView_Previews: PreviewProvider {

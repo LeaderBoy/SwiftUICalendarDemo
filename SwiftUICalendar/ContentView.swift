@@ -11,10 +11,17 @@ import Combine
 
 class CalendarObj : ObservableObject {
     @Published var calendar : Calendar = .current
-    @Published var date : Date = Date()
     @Published var selectedDate : Date! = nil
     @Published var pageManager = PageManager()
+    /// 24 year
+    @Published var minDate = Date().addMonth(by: -12 * 10)
+    @Published var date : Date = Date()
+    @Published var maxDate = Date().addMonth(by: 12 * 10)
     
+    var months : Int {
+        return minDate.monthDiff(to: maxDate)
+    }
+
     var anyCancellable: AnyCancellable? = nil
 
     /// for nest ObservableObject not work

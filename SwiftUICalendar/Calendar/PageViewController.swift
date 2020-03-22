@@ -31,13 +31,13 @@ struct PageViewController: UIViewControllerRepresentable {
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
 //        pageViewController.delegate = context.coordinator
-        pageManager.onPageChange = {(page,direction) in
-            if page >= self.controllers.count || page < 0  {
-                print("Warning ⚠️ : page beyond index of range" )
-                return
-            }
-            pageViewController.setViewControllers([self.controllers[page]], direction: direction, animated: true)
-        }
+//        pageManager.onPageChange = {(page,direction) in
+//            if page >= self.controllers.count || page < 0  {
+//                print("Warning ⚠️ : page beyond index of range" )
+//                return
+//            }
+//            pageViewController.setViewControllers([self.controllers[page]], direction: direction, animated: true)
+//        }
         return pageViewController
     }
 

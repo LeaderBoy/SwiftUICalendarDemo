@@ -44,10 +44,11 @@ struct CalendarToolBar: View {
                     Text("\(yearSymbols) ")
                     .font(.system(size: 25, weight: .bold))
                 }
-            }
+            }            
             Spacer()
             HStack(spacing:5) {
                 Button(action: {
+                    self.calendarObj.date = self.calendarObj.date.addMonth(by:-1)
                     self.calendarObj.pageManager.currentPage -= 1
                 }) {
                     Image(systemName: "chevron.left")
@@ -55,6 +56,7 @@ struct CalendarToolBar: View {
                 }
                 .frame(width: 50, height: 40)
                 Button(action: {
+                    self.calendarObj.date = self.calendarObj.date.addMonth(by:1)
                     self.calendarObj.pageManager.currentPage += 1
                 }) {
                     Image(systemName: "chevron.right")

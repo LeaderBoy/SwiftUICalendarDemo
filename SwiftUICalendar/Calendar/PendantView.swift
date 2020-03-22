@@ -11,6 +11,14 @@ import SwiftUI
 struct PendantView: View {
     
     @EnvironmentObject var obj : CalendarObj
+    
+    var components : DateComponents {
+        return obj.calendar.dateComponents([.year,.month,.day], from: obj.date)
+    }
+    
+    var month : Int {
+        return components.month!
+    }
 
     var color : Color = .green
     
@@ -21,7 +29,7 @@ struct PendantView: View {
                 VStack {
                     Text("Mon")
                         .font(.footnote)
-                    Text("\(obj.pageManager.currentPage)")
+                    Text("\(month)")
                 }.foregroundColor(Color.white)
             }
             .frame(width: 50, height: 50)

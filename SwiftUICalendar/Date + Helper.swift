@@ -19,6 +19,14 @@ extension Date {
         return calendar.date(byAdding: .day, value: by, to: self)!
     }
     
+    func addMonth(by : Int ,in calendar : Calendar = .current) -> Date {
+        return calendar.date(byAdding: .month, value: by, to: self)!
+    }
+    
+    func monthDiff(in calendar : Calendar = .current,to:Date) -> Int {
+        return calendar.dateComponents([.month], from: self, to: to).month!
+    }
+    
     func numberOfDays(in calendar : Calendar = .current) -> Int {
         return calendar.range(of: .day, in: .month, for: self)!.count
     }
@@ -44,9 +52,17 @@ extension Date {
     
     func firstDay(in calendar : Calendar = .current) -> Date? {
         if let interval = calendar.dateInterval(of: .month, for: self) {
-            return interval.start.toLocalTime()
+            return interval.start
+                
+                //.toLocalTime()
         }
         return nil
+    }
+    
+    func firstDayOfWeek(in calendar : Calendar = .current) -> Int {
+        let first = firstDay(in: calendar)!
+        let components = calendar.dateComponents([.weekday], from: first)
+        return components.weekday!
     }
     
     func lastDay(in calendar : Calendar = .current) -> Date? {
@@ -56,13 +72,9 @@ extension Date {
         return nil
     }
     
-    func days(in calendar : Calendar = .current) {
-        let start = calendar.startOfDay(for: self)
-        print("start\(start)")
-//        if let start = startDay(in: calendar),let end = endDay(in:calendar) {
-//            let components = calendar.dateComponents([.month], from: start, to: end)
-//            print("components\(components)")
-//        }
+    func dateComponents(in calendar : Calendar = .current) -> DateComponents {
+        let components = calendar.dateComponents([.year,.month,.day], from: self)
+        return components
     }
     
     func toLocalTime() -> Date {

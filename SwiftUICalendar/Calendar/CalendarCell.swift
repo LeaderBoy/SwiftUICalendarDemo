@@ -11,7 +11,7 @@ import SwiftUI
 struct CalendarCell: View {
     @EnvironmentObject var obj : CalendarObj
     
-    var date : Date
+    var holderDate : HolderDate
     
     @Binding var state : CellState
     
@@ -56,7 +56,7 @@ struct CalendarCell: View {
                 self.state = .selected
             }
         }) {
-            Text("\(self.day())")
+            Text(self.day())
         }
         .frame(width: 44, height: 44)
         .foregroundColor(state.stateTextColor())
@@ -64,9 +64,12 @@ struct CalendarCell: View {
         .clipShape(Circle())
     }
     
-    func day() -> Int {
-        let components = obj.calendar.dateComponents([.day], from: date)
-        return components.day ?? 0
+    func day() -> String {
+        if let date = holderDate.date {
+            let components = obj.calendar.dateComponents([.day], from: date)
+            return "\(components.day!)"
+        }
+        return ""
     }
     
 }
@@ -74,16 +77,16 @@ struct CalendarCell: View {
 struct CalendarCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CalendarCell(date: Date(), state: .constant(.normal))
+            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.normal))
             .previewDisplayName("Normal")
 
-            CalendarCell(date: Date(), state: .constant(.current))
+            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.current))
             .previewDisplayName("Current")
 
-            CalendarCell(date: Date(), state: .constant(.selected))
+            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.selected))
             .previewDisplayName("Selected")
 
-            CalendarCell(date: Date(), state: .constant(.disabled))
+            CalendarCell(holderDate: HolderDate(date:Date()), state: .constant(.disabled))
             .previewDisplayName("Disabled")
         }.previewLayout(.fixed(width: 300, height: 100))
     }

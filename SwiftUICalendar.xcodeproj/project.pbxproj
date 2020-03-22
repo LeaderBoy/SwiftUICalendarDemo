@@ -25,6 +25,7 @@
 		2FF5205C2424CFED00B432A8 /* SwiftUI + UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */; };
 		52D9882824265E7D00A32661 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882724265E7D00A32661 /* PageView.swift */; };
 		52D9882A24265EBA00A32661 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882924265EBA00A32661 /* PageViewController.swift */; };
+		52D9882D24270DA300A32661 /* PageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882C24270DA300A32661 /* PageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI + UICollectionView.swift"; sourceTree = "<group>"; };
 		52D9882724265E7D00A32661 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		52D9882924265EBA00A32661 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		52D9882C24270DA300A32661 /* PageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,14 +124,8 @@
 				2F15AB732420BC870069135A /* AppDelegate.swift */,
 				2F15AB752420BC870069135A /* SceneDelegate.swift */,
 				2F15AB772420BC870069135A /* ContentView.swift */,
-				2F15ABA52420BCA10069135A /* PendantView.swift */,
-				2F15ABA42420BCA10069135A /* CalendarToolBar.swift */,
-				2F15ABA92420BD2E0069135A /* CalendarWeekBar.swift */,
-				2F15ABAD2420C73E0069135A /* CalendarCell.swift */,
+				52D9882B24270D7100A32661 /* Calendar */,
 				2F15ABAF2420CAF10069135A /* CalendarDateCollectionView.swift */,
-				2F15ABA32420BCA10069135A /* CalendarView.swift */,
-				52D9882724265E7D00A32661 /* PageView.swift */,
-				52D9882924265EBA00A32661 /* PageViewController.swift */,
 				2F4BE8E924249D6900559E60 /* Date + Helper.swift */,
 				2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */,
 				2F15AB792420BC880069135A /* Assets.xcassets */,
@@ -164,6 +160,21 @@
 				2F15AB972420BC880069135A /* Info.plist */,
 			);
 			path = SwiftUICalendarUITests;
+			sourceTree = "<group>";
+		};
+		52D9882B24270D7100A32661 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				2F15ABA52420BCA10069135A /* PendantView.swift */,
+				2F15ABA42420BCA10069135A /* CalendarToolBar.swift */,
+				2F15ABA92420BD2E0069135A /* CalendarWeekBar.swift */,
+				2F15ABAD2420C73E0069135A /* CalendarCell.swift */,
+				2F15ABA32420BCA10069135A /* CalendarView.swift */,
+				52D9882724265E7D00A32661 /* PageView.swift */,
+				52D9882924265EBA00A32661 /* PageViewController.swift */,
+				52D9882C24270DA300A32661 /* PageManager.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +322,7 @@
 				2F15ABA62420BCA10069135A /* CalendarView.swift in Sources */,
 				2FF5205C2424CFED00B432A8 /* SwiftUI + UICollectionView.swift in Sources */,
 				2F4BE8EA24249D6900559E60 /* Date + Helper.swift in Sources */,
+				52D9882D24270DA300A32661 /* PageManager.swift in Sources */,
 				52D9882A24265EBA00A32661 /* PageViewController.swift in Sources */,
 				2F15ABAA2420BD2E0069135A /* CalendarWeekBar.swift in Sources */,
 				2F15AB782420BC870069135A /* ContentView.swift in Sources */,
