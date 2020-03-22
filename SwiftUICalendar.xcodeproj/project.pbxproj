@@ -23,6 +23,7 @@
 		2F15ABB02420CAF10069135A /* CalendarDateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F15ABAF2420CAF10069135A /* CalendarDateCollectionView.swift */; };
 		2F4BE8EA24249D6900559E60 /* Date + Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4BE8E924249D6900559E60 /* Date + Helper.swift */; };
 		2FF5205C2424CFED00B432A8 /* SwiftUI + UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */; };
+		52CE50E624279A6D00347318 /* SegmentControlMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CE50E524279A6D00347318 /* SegmentControlMenu.swift */; };
 		52D9882824265E7D00A32661 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882724265E7D00A32661 /* PageView.swift */; };
 		52D9882A24265EBA00A32661 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882924265EBA00A32661 /* PageViewController.swift */; };
 		52D9882D24270DA300A32661 /* PageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9882C24270DA300A32661 /* PageManager.swift */; };
@@ -68,6 +69,7 @@
 		2F15ABAF2420CAF10069135A /* CalendarDateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCollectionView.swift; sourceTree = "<group>"; };
 		2F4BE8E924249D6900559E60 /* Date + Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Helper.swift"; sourceTree = "<group>"; };
 		2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI + UICollectionView.swift"; sourceTree = "<group>"; };
+		52CE50E524279A6D00347318 /* SegmentControlMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlMenu.swift; sourceTree = "<group>"; };
 		52D9882724265E7D00A32661 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		52D9882924265EBA00A32661 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		52D9882C24270DA300A32661 /* PageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageManager.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				2F15ABAF2420CAF10069135A /* CalendarDateCollectionView.swift */,
 				2F4BE8E924249D6900559E60 /* Date + Helper.swift */,
 				2FF5205B2424CFED00B432A8 /* SwiftUI + UICollectionView.swift */,
+				52CE50E524279A6D00347318 /* SegmentControlMenu.swift */,
 				2F15AB792420BC880069135A /* Assets.xcassets */,
 				2F15AB7E2420BC880069135A /* LaunchScreen.storyboard */,
 				2F15AB812420BC880069135A /* Info.plist */,
@@ -325,6 +328,7 @@
 				52D9882D24270DA300A32661 /* PageManager.swift in Sources */,
 				52D9882A24265EBA00A32661 /* PageViewController.swift in Sources */,
 				2F15ABAA2420BD2E0069135A /* CalendarWeekBar.swift in Sources */,
+				52CE50E624279A6D00347318 /* SegmentControlMenu.swift in Sources */,
 				2F15AB782420BC870069135A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

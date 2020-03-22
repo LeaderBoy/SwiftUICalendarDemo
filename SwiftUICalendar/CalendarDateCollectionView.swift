@@ -11,27 +11,30 @@ import SwiftUI
 struct CalendarDateCollectionView: View {
     
     @EnvironmentObject var obj : CalendarObj
-    @State var state : CalendarCell.CellState = .normal
+    @State private var state : CalendarCell.CellState = .normal
+    @State private var size : CGSize = .zero
     
     var body: some View {
-        VStack {
-            PageView(pageManager: obj.pageManager, views:[self.page()])
-        }
+        PageView(pageManager: self.obj.pageManager, views:[self.page()])
+        .frame(height: 44 * 6)
     }
 
     func page() -> some View {
         VStack {
-            ForEach(self.datesArray(),id: \.self) { rows in
-                HStack(spacing:0) {
-                    ForEach(rows,id: \.self) { column in
-                        HStack {
-                            Spacer(minLength: 0)
-                            CalendarCell(holderDate: column)
-                            Spacer(minLength: 0)
+            VStack {
+                ForEach(self.datesArray(),id: \.self) { rows in
+                    HStack(spacing:0) {
+                        ForEach(rows,id: \.self) { column in
+                            HStack {
+                                Spacer(minLength: 0)
+                                CalendarCell(holderDate: column)
+                                Spacer(minLength: 0)
+                            }
                         }
                     }
                 }
             }
+            Spacer(minLength: 0)
         }
     }
     
