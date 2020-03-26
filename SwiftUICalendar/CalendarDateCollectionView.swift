@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CalendarDateCollectionView: View {
     
-    @EnvironmentObject var obj : CalendarObj
+    @EnvironmentObject var obj : CalendarManager
     @State private var state : CalendarCell.CellState = .normal
     @State private var size : CGSize = .zero
     
@@ -95,11 +95,11 @@ struct CalendarDateCollectionView_Previews: PreviewProvider {
         Group {
             CalendarDateCollectionView()
 //            .previewLayout(.fixed(width: 400, height: 300))
-            .environmentObject(CalendarObj())
+            .environmentObject(CalendarManager())
 //
 //            CalendarDateCollectionView()
 //            .previewLayout(.fixed(width: 320, height: 300))
-//            .environmentObject(CalendarObj())
+//            .environmentObject(CalendarManager())
         }
     }
 }

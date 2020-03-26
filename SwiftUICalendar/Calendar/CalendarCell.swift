@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CalendarCell: View {
-    @EnvironmentObject var obj : CalendarObj
+    @EnvironmentObject var obj : CalendarManager
     
     var holderDate : HolderDate
     

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CalendarWeekBar: View {
     
-    @EnvironmentObject var calendarObj : CalendarObj
+    @EnvironmentObject var CalendarManager : CalendarManager
     
     var color : Color = Color.gray
         
@@ -29,7 +29,7 @@ struct CalendarWeekBar: View {
     }
     
     func weeks() -> [String] {
-        return calendarObj.calendar.shortStandaloneWeekdaySymbols
+        return CalendarManager.calendar.shortStandaloneWeekdaySymbols
         //(identifier: "zh_Hans_CN")
 //        return ca.shortStandaloneMonthSymbols
     }
@@ -37,6 +37,6 @@ struct CalendarWeekBar: View {
 
 struct CalendarWeekBar_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarWeekBar().environmentObject(CalendarObj())
+        CalendarWeekBar().environmentObject(CalendarManager())
     }
 }

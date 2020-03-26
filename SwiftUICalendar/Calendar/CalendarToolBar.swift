@@ -10,10 +10,10 @@ import SwiftUI
 
 struct CalendarToolBar: View {
     
-    @EnvironmentObject var calendarObj : CalendarObj
+    @EnvironmentObject var CalendarManager : CalendarManager
     
     var components : DateComponents {
-        return calendarObj.calendar.dateComponents([.year,.month,.day], from: calendarObj.date)
+        return CalendarManager.calendar.dateComponents([.year,.month,.day], from: CalendarManager.date)
     }
     
     var year : Int  {
@@ -25,7 +25,7 @@ struct CalendarToolBar: View {
     }
     
     var shortMonthSymbols : String {
-        return calendarObj.calendar.shortMonthSymbols[month - 1]
+        return CalendarManager.calendar.shortMonthSymbols[month - 1]
     }
     
     var yearSymbols : String {
@@ -48,16 +48,16 @@ struct CalendarToolBar: View {
             Spacer()
             HStack(spacing:5) {
                 Button(action: {
-                    self.calendarObj.date = self.calendarObj.date.addMonth(by:-1)                    
-                    self.calendarObj.pageManager.currentPage -= 1
+                    self.CalendarManager.date = self.CalendarManager.date.addMonth(by:-1)                    
+                    self.CalendarManager.pageManager.currentPage -= 1
                 }) {
                     Image(systemName: "chevron.left")
                     .font(.system(size: 25, weight: .medium))
                 }
                 .frame(width: 50, height: 40)
                 Button(action: {
-                    self.calendarObj.date = self.calendarObj.date.addMonth(by:1)
-                    self.calendarObj.pageManager.currentPage += 1
+                    self.CalendarManager.date = self.CalendarManager.date.addMonth(by:1)
+                    self.CalendarManager.pageManager.currentPage += 1
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 25, weight: .medium))
@@ -70,6 +70,6 @@ struct CalendarToolBar: View {
 
 struct CalendarToolBar_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarToolBar().environmentObject(CalendarObj())
+        CalendarToolBar().environmentObject(CalendarManager())
     }
 }

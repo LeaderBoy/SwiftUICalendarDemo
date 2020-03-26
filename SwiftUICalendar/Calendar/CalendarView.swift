@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CalendarView: View {
     
-    @EnvironmentObject var calendarObj : CalendarObj
+    @EnvironmentObject var CalendarManager : CalendarManager
     
     var body: some View {
         VStack {
@@ -25,7 +25,7 @@ struct CalendarView: View {
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView().environmentObject(CalendarObj())
+        CalendarView().environmentObject(CalendarManager())
 //        .previewLayout(PreviewLayout.sizeThatFits)
     }
 }

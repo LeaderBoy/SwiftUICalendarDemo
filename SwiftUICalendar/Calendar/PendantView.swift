@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PendantView: View {
     
-    @EnvironmentObject var obj : CalendarObj
+    @EnvironmentObject var obj : CalendarManager
     
     var components : DateComponents {
         return obj.calendar.dateComponents([.year,.month,.day], from: obj.date)

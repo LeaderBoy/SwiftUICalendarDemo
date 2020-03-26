@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-class CalendarObj : ObservableObject {
+class CalendarManager : ObservableObject {
     
     let didChangeSelectedDate = PassthroughSubject<Date,Never>()
     
@@ -43,7 +43,7 @@ class CalendarObj : ObservableObject {
 
 struct ContentView: View {
     
-    var calendarObj = CalendarObj()
+    var calendarObj = CalendarManager()
     
     var body: some View {
         CalendarView().environmentObject(calendarObj)
