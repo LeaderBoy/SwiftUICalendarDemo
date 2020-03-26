@@ -31,21 +31,10 @@ struct PageViewController: UIViewControllerRepresentable {
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
         pageViewController.delegate = context.coordinator
-//        pageManager.onPageChange = {(page,direction) in
-//            if page >= self.controllers.count || page < 0  {
-//                print("Warning ⚠️ : page beyond index of range" )
-//                return
-//            }
-//            pageViewController.setViewControllers([self.controllers[page]], direction: direction, animated: true)
-//        }
         return pageViewController
     }
 
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        
-        pageViewController.view.setContentHuggingPriority(.required, for: .vertical)
-        pageViewController.view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
         let coor = context.coordinator
         if coor.last == currentPage {
             return

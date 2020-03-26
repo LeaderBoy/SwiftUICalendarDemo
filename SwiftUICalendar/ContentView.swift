@@ -43,7 +43,7 @@ class CalendarObj : ObservableObject {
 
 struct ContentView: View {
     
-    @ObservedObject var calendarObj = CalendarObj()
+    var calendarObj = CalendarObj()
     
     var body: some View {
         CalendarView().environmentObject(calendarObj)
